@@ -40,9 +40,9 @@ class Main:
         model_order = int(input('Enter order of the model: '))
         number_of_names = int(input('Number of names: '))
 
-        if male_female == 1:
-            data = open('namesBoys.txt', 'r')
         if male_female == 2:
+            data = open('namesBoys.txt', 'r')
+        if male_female == 1:
             data = open('namesGirls.txt', 'r')
 
         model =  Generator(data, min_name_length, max_name_length, model_order, number_of_names)

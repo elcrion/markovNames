@@ -32,12 +32,11 @@ class DefaultTrainTestCase(markovTest):
         self.assertNotEqual(len(self.model),0,'Failed to train model')
 
 
-     # def runDetailedTrainTest(self):
-     #     self.assertEqual(len(self.model.keys()), len(self.model.values()))
+    def runDetailedTrainTest(self):
+        self.assertEqual(len(self.model.keys()), len(self.model.values()))
 
 
 class DefaultNameGenTestCase(markovTest):
     def runTest(self):
-        names = self.model.read_file()
-        model = self.model.train_model(names)
-        self.assertNotEqual(len(self.model.generate_names()),0,'Failed to generate names')
+        model = self.model.generate_names()
+        self.assertEqual(len(model),self.number_of_names,'Failed to generate names')

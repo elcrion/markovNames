@@ -45,7 +45,6 @@ class Generator:
         '''
 
         baby_names = (item.lower().strip() for item in self.list_of_names)
-
         dict = {}
         for name in baby_names:
 
