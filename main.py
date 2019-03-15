@@ -17,10 +17,10 @@ class Main:
 
         """
         Get initial parameters
-        min_name_length :
-        male_female :
-        model_order :
-        number_of_names :
+        min_name_length :  minimum name length
+        male_female :  male or female slection {1: female 2: male}
+        model_order : order of model
+        number_of_names : number of returned generated names
         :return: null
         """
         data = []
