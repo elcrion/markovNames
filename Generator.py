@@ -17,11 +17,11 @@ class Generator:
     def __init__(self, list_of_names, min_name_length, max_name_length, model_order, number_of_names):
         '''
         Initiate object
-        :param list_of_names:
-        :param min_name_length:
-        :param max_name_length:
-        :param model_order:
-        :param number_of_names:
+        :param list_of_names: []
+        :param min_name_length: int
+        :param max_name_length: int
+        :param model_order: int
+        :param number_of_names: int
         '''
         self.list_of_names = list_of_names
         self.max_name_length = max_name_length
@@ -82,6 +82,9 @@ class Generator:
     def generate_names(self):
         '''
         Main function to generate random unique names not included in original list
+        Choose randomly first state of the name from the trained dictionary
+        Get new state (letter) from trained dictionary with weighted random choice
+        Continue until the name is less then maximum length and name list constraints satisfies
         :return: list of possible names
         '''
         words_dict = self.read_file()
