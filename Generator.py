@@ -22,12 +22,14 @@ class Generator:
         :param max_name_length: int
         :param model_order: int
         :param number_of_names: int
+        :param self.word_breaks : string , set amount of breaks as _ times order of the model
         '''
         self.list_of_names = list_of_names
         self.max_name_length = max_name_length
         self.min_name_length = min_name_length
         self.number_of_names = number_of_names
         self.model_order = model_order
+        self.word_breaks = self.model_order*'_'
 
 
     def read_file(self):
@@ -44,7 +46,8 @@ class Generator:
         :return: dictionary of each letter from names list ex. : 'gu': {'i': 1, 's': 4, 'e': 1, 'n': 2}
         '''
 
-        baby_names = (item.lower().strip() for item in self.list_of_names)
+
+        baby_names = (self.word_breaks+item.lower().strip()+self.word_breaks for item in self.list_of_names)
         dict = {}
         for name in baby_names:
 
@@ -82,22 +85,26 @@ class Generator:
     def generate_names(self):
         '''
         Main function to generate random unique names not included in original list
-        Choose randomly first state of the name from the trained dictionary
-        Get new state (letter) from trained dictionary with weighted random choice
-        Continue until the name is less then maximum length and name list constraints satisfies
+        Get initial letter from word breaks symbol.
+        Get new state (letter) from trained dictionary with weighted random choice every time with previous state
+        Continue until the end of word break symbol appears in the state
+        Remove word breaks symbol from names
+        Check if name between max and min length and name list constraints satisfies
         :return: list of possible names
         '''
         words_dict = self.read_file()
         probabilities_dict = self.train_model(words_dict)
         names = []
         while len(names) < self.number_of_names:
-            name = random.choice(list(probabilities_dict.keys()))
-            while len(name) < self.max_name_length:
+            init_prob =  probabilities_dict.get(self.word_breaks)
+            name =  self.word_breaks+self.next_state(list(init_prob[0]),list(init_prob[1]))
+            while name[-self.model_order:]!= self.word_breaks:
                 prob_dict = probabilities_dict.get(name[-self.model_order:])
                 next_state = self.next_state(list(prob_dict[0]), list(prob_dict[1]))
                 name += next_state
 
-            if name not in self.list_of_names:
+            name = name.replace(self.word_breaks,'')
+            if name not in self.list_of_names and self.max_name_length > len(name) >= self.min_name_length:
                 names.append(name)
 
         return names
@@ -105,3 +112,5 @@ class Generator:
     @staticmethod
     def next_state(dict, weights):
         return random.choices(dict, weights=weights, k=1).pop()
+
+
