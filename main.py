@@ -47,7 +47,7 @@ class Main:
 
         model =  Generator(data, min_name_length, max_name_length, model_order, number_of_names)
         print(model.generate_names())
-
+        data.close()
         repeat = input('Push enter to try again')
 
         if repeat == "":

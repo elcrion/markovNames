@@ -39,5 +39,5 @@ class DefaultTrainTestCase(markovTest):
 class DefaultNameGenTestCase(markovTest):
     def runTest(self):
         model = self.model.generate_names()
-        self.assertNotEquals(len(model), 0, 'Failed to generate names, length is 0 ')
+        self.assertNotEqual(len(model), 0, 'Failed to generate names, length is 0 ')
         self.assertLessEqual(len(model),self.number_of_names,'Failed to generate names, length is not within constraints')
