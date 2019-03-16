@@ -35,6 +35,7 @@ class Generator:
     def read_file(self):
         '''
         Iterate over list of names to create a list of unique letters
+        Add word breaks symbol before and after each name in the list
         Ignore name for now  if name length is less then order
         Depends on order get the first letters as state
         (ex. : if order 2 the initial state is 2 letters)
@@ -111,6 +112,9 @@ class Generator:
 
     @staticmethod
     def next_state(dict, weights):
+        '''
+        Random choice from weighted list
+        '''
         return random.choices(dict, weights=weights, k=1).pop()
 
 
